@@ -9,7 +9,7 @@ build:
 
     - script:
         name: env
-        code: env
+        code: env | grep -v "DOCKER"
 
     # Gets the dependencies
     - script:
