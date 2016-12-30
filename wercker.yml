@@ -7,6 +7,10 @@ build:
     - setup-go-workspace:
         package-dir: github.com/danielbryantuk/go-spring-shopping
 
+    - script:
+        name: env
+        code: env
+
     # Gets the dependencies
     - script:
         name: go get
@@ -24,3 +28,15 @@ build:
         name: go test
         code: |
           go test ./...
+
+deploy:
+  steps:
+    - internal/docker-push:
+        username: $DOCKER_USERNAME
+        password: $DOCKER_PASSWORD
+        cmd: /go-spring-shopping/main
+        port: "8080"
+        tag: latest
+        repository: danielbryantuk/go-spring-shopping
+        registry: https://hub.docker.com/
+
